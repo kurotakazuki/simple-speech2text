@@ -8,7 +8,7 @@ import json
 import sys
 import tkinter.font as tkFont
 
-MODEL_PATH = "vosk-model-ja-0.22"
+MODEL_PATH = "vosk-model-small-ja-0.22"
 
 q = queue.Queue()
 
@@ -18,7 +18,9 @@ class SpeechApp:
         self.root = root
         self.root.title("🎤 音声認識GUI - 日本語 Vosk")
 
-        self.root.state("zoomed")
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        self.root.geometry(f"{screen_width}x{screen_height}+0+0")
 
         jp_font = tkFont.Font(family="Noto Sans CJK JP", size=20)
         self.root.option_add("*Font", jp_font)
