@@ -54,6 +54,7 @@ class SpeechApp:
         self.recognizer = KaldiRecognizer(self.model, 16000)
 
         self.devices = []
+        self.previous_log = ""  # 直前のログを保存
 
         self.populate_devices()
 
@@ -113,8 +114,15 @@ class SpeechApp:
         self.log("🛑 音声認識を停止しました")
 
     def log(self, message):
+        self.log_area.delete("1.0", tk.END)
+
+        if self.previous_log:
+            self.log_area.insert(tk.END, self.previous_log + "\n")
+
         self.log_area.insert(tk.END, message + "\n")
         self.log_area.yview(tk.END)
+
+        self.previous_log = message
 
 
 if __name__ == "__main__":
