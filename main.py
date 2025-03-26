@@ -116,7 +116,7 @@ class SpeechApp:
         self.log("🛑 音声認識を停止しました")
 
     def log(self, message):
-        if len(message.split(":")) < 2:
+        if message == "⏳ 中間結果: " or message == "✔️ 認識結果: ":
             return
 
         self.log_area.delete("1.0", tk.END)
