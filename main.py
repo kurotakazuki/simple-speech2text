@@ -18,7 +18,7 @@ class SpeechApp:
         self.root = root
         self.root.title("🎤 音声認識GUI - 日本語 Vosk")
 
-        self.root.attributes("-fullscreen", True)
+        self.root.state("zoomed")
 
         jp_font = tkFont.Font(family="Noto Sans CJK JP", size=20)
         self.root.option_add("*Font", jp_font)
