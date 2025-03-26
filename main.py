@@ -127,7 +127,8 @@ class SpeechApp:
         self.log_area.insert(tk.END, message + "\n")
         self.log_area.yview(tk.END)
 
-        self.previous_log = message
+        if message.startswith("✔️"):
+            self.previous_log = message
 
 
 if __name__ == "__main__":
