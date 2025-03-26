@@ -24,6 +24,8 @@ class SpeechApp:
 
         jp_font = tkFont.Font(family="Noto Sans CJK JP", size=20)
         self.root.option_add("*Font", jp_font)
+        jp_font_xl = tkFont.Font(family="Noto Sans CJK JP", size=40)
+        self.root.option_add("*Font", jp_font_xl)
 
         tk.Label(root, text="🎧 入力デバイスを選択", font=jp_font).pack(pady=10)
         self.device_var = tk.StringVar()
@@ -46,7 +48,7 @@ class SpeechApp:
         self.stop_btn.pack(pady=10)
 
         self.log_area = scrolledtext.ScrolledText(
-            root, width=80, height=15, font=jp_font
+            root, width=100, height=15, font=jp_font_xl
         )
         self.log_area.pack(padx=10, pady=20)
 
