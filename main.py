@@ -53,13 +53,15 @@ class SpeechApp:
         self.model = Model(MODEL_PATH)
         self.recognizer = KaldiRecognizer(self.model, 16000)
 
+        self.devices = []
+
         self.populate_devices()
 
     def populate_devices(self):
-        devices = sd.query_devices()
+        self.devices = sd.query_devices()
         input_devices = [
             f"{idx}: {dev['name']}"
-            for idx, dev in enumerate(devices)
+            for idx, dev in enumerate(self.devices)
             if dev["max_input_channels"] > 0
         ]
         self.device_box["values"] = input_devices
@@ -77,6 +79,7 @@ class SpeechApp:
             return
 
         device_index = int(self.device_var.get().split(":")[0])
+        samplerate = self.devices[device_index]["default_samplerate"]
         self.running = True
         self.start_btn.config(state=tk.DISABLED)
         self.stop_btn.config(state=tk.NORMAL)
@@ -84,7 +87,7 @@ class SpeechApp:
 
         def recognize():
             with sd.RawInputStream(
-                samplerate=16000,
+                samplerate=samplerate,
                 blocksize=8000,
                 dtype="int16",
                 channels=1,
