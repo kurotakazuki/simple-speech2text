@@ -9,6 +9,7 @@ import sys
 import tkinter.font as tkFont
 
 MODEL_PATH = "vosk-model-small-ja-0.22"
+DEFAULT_INPUT_DEVICE = "microphone"
 
 q = queue.Queue()
 
@@ -58,10 +59,16 @@ class SpeechApp:
         self.devices = []
         self.previous_log = ""  # 直前のログを保存
 
+        self.default_input_device_id = None
+
         self.populate_devices()
 
     def populate_devices(self):
         self.devices = sd.query_devices()
+        for idx, dev in enumerate(self.devices):
+            if DEFAULT_INPUT_DEVICE in dev["name"]:
+                self.default_input_device_id = idx
+                break
         input_devices = [
             f"{idx}: {dev['name']}"
             for idx, dev in enumerate(self.devices)
@@ -77,11 +84,13 @@ class SpeechApp:
         q.put(bytes(indata))
 
     def start_recognition(self):
-        if not self.device_var.get():
+        if not self.device_var.get() and self.default_input_device_id is None:
             messagebox.showwarning("デバイス未選択", "入力デバイスを選択してください")
             return
-
-        device_index = int(self.device_var.get().split(":")[0])
+        if self.default_input_device_id is not None:
+            device_index = self.default_input_device_id
+        else:
+            device_index = int(self.device_var.get().split(":")[0])
         samplerate = self.devices[device_index]["default_samplerate"]
         self.recognizer = KaldiRecognizer(self.model, samplerate)
         self.running = True
