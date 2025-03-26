@@ -80,6 +80,7 @@ class SpeechApp:
 
         device_index = int(self.device_var.get().split(":")[0])
         samplerate = self.devices[device_index]["default_samplerate"]
+        self.recognizer = KaldiRecognizer(self.model, samplerate)
         self.running = True
         self.start_btn.config(state=tk.DISABLED)
         self.stop_btn.config(state=tk.NORMAL)
