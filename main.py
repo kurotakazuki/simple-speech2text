@@ -18,9 +18,7 @@ class SpeechApp:
         self.root = root
         self.root.title("🎤 音声認識GUI - 日本語 Vosk")
 
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-        self.root.geometry(f"{screen_width}x{screen_height}+0+0")
+        root.attributes("-zoomed", True)
 
         jp_font = tkFont.Font(family="Noto Sans CJK JP", size=20)
         self.root.option_add("*Font", jp_font)
@@ -118,6 +116,9 @@ class SpeechApp:
         self.log("🛑 音声認識を停止しました")
 
     def log(self, message):
+        if len(message.split(":")) < 2:
+            return
+
         self.log_area.delete("1.0", tk.END)
 
         if self.previous_log:
