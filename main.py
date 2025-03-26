@@ -8,7 +8,7 @@ import json
 import sys
 import tkinter.font as tkFont
 
-MODEL_PATH = "vosk-model-small-ja-0.22"
+MODEL_PATH = "vosk-model-ja-0.22"
 
 q = queue.Queue()
 

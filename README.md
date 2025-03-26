@@ -21,6 +21,9 @@ pip install -r requirements.txt
 curl -L -o vosk-model-small-ja-0.22.zip https://alphacephei.com/vosk/models/vosk-model-small-ja-0.22.zip
 unzip vosk-model-small-ja-0.22.zip
 
+curl -L -o vosk-model-ja-0.22.zip https://alphacephei.com/vosk/models/vosk-model-ja-0.22.zip
+unzip vosk-model-ja-0.22.zip
+
 python main.py
 
 ```
